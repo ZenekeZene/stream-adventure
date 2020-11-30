@@ -1,7 +1,11 @@
-const { Readable } = require('stream')
+const { Writable } = require('stream')
 
-const myStream = new Readable({})
-myStream._read = () => {}
-myStream.push(process.argv[2])
-myStream.pipe(process.stdout)
+const myStream = new Writable({
+  write(chunk) {}
+})
+process.stdin.on('data', (chunk) => {
+  console.log('writing: ' + chunk)
+})
+
+process.stdin.pipe(myStream)
 
