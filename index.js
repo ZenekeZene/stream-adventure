@@ -1,11 +1,14 @@
-const { Writable } = require('stream')
+const { doesNotMatch } = require('assert')
+const through = require('through2')
 
-const myStream = new Writable({
-  write(chunk, encoding, callback) {}
-})
-process.stdin.on('data', (chunk) => {
-  console.log('writing: ' + chunk)
-})
+function write (buffer, encoding, next) {
+  this.push(buffer.toString().toUpperCase())
+  next()
+}
 
-process.stdin.pipe(myStream)
+function end () {
+  done()
+}
 
+const stream = through(write, end)
+process.stdin.pipe(stream).pipe(process.stdout)
