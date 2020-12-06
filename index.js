@@ -1,7 +1,7 @@
 const { Writable } = require('stream')
 
 const myStream = new Writable({
-  write(chunk) {}
+  write(chunk, encoding, callback) {}
 })
 process.stdin.on('data', (chunk) => {
   console.log('writing: ' + chunk)
